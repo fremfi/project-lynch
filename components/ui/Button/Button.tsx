@@ -2,11 +2,6 @@
 
 import cn from 'classnames';
 import React, { forwardRef, useRef, ButtonHTMLAttributes } from 'react';
-import { mergeRefs } from 'react-merge-refs';
-
-import LoadingDots from '@/components/ui/LoadingDots';
-
-import styles from './Button.module.css';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'slim' | 'flat';
@@ -30,21 +25,12 @@ const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
     ...rest
   } = props;
   const ref = useRef(null);
-  const rootClassName = cn(
-    styles.root,
-    {
-      [styles.slim]: variant === 'slim',
-      [styles.loading]: loading,
-      [styles.disabled]: disabled
-    },
-    className
-  );
+
   return (
     <Component
       aria-pressed={active}
       data-variant={variant}
-      ref={mergeRefs([ref, buttonRef])}
-      className={rootClassName}
+
       disabled={disabled}
       style={{
         width,
@@ -55,7 +41,7 @@ const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
       {children}
       {loading && (
         <i className="flex pl-2 m-0">
-          <LoadingDots />
+          ...
         </i>
       )}
     </Component>
